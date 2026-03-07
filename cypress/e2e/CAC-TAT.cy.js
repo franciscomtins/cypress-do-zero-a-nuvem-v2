@@ -63,8 +63,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get('#open-text-area').type(contato.comoPodemosAjudar, { delay:0 }) 
     cy.get('#phone-checkbox').check()
 
-    cy.get('button[type="submit"]')
-      .contains('Enviar')
+    cy.contains('button[type="submit"]', 'Enviar')
       .click()
 
     cy.get('.error > strong')
@@ -98,8 +97,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
   })
 
   it('Valida submeter o formulário sem preencher os campos obrigatórios', () => {
-    cy.get('button[type="submit"]')
-      .contains('Enviar')
+    cy.contains('button[type="submit"]', 'Enviar')
       .click()
 
     cy.get('.error > strong')
