@@ -2,9 +2,9 @@
 
 👋 Seja bem-vindo(a)!
 
-É muito bom tê-lo(a) aqui. Tenho certeza que você vai amar esse curso. ❤️
+Refazendo o treinamento básico na versão 2
 
-## O que você vai aprender?
+## Vamos exercitar: 
 
 - Como configurar um projeto Cypress do zero
 - Como visitar páginas locais e remotas
