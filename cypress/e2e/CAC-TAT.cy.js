@@ -9,6 +9,8 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     comoPodemosAjudar: faker.lorem.sentences(2)
   }
 
+  const textoLongo = Cypress._.repeat('teste com texto longo ', 12)
+
   beforeEach(() => {
     cy.visit('/src/index.html')
   })
@@ -22,7 +24,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
      cy.get('#firstName').type(contato.nome)
      cy.get('#lastName').type(contato.sobrenome)
      cy.get('#email').type(contato.email)  
-     cy.get('#open-text-area').type(contato.comoPodemosAjudar)   
+     cy.get('#open-text-area').type(contato.comoPodemosAjudar, { delay:0 })   
 
      cy.get('button[type="submit"]')
        .contains('Enviar')
@@ -31,6 +33,28 @@ describe('Central de Atendimento ao Cliente TAT', () => {
      cy.get('.success > strong')
        .should('be.visible', 'Mensagem enviada com sucesso.')
   })
+
+  it('Valida submeter o formulário com um email com formatação inválida', () => {
+    cy.get('#firstName').type(contato.nome)
+    cy.get('#lastName').type(contato.sobrenome)
+    cy.get('#email').type('emailIncorreto')  
+    cy.get('#open-text-area').type(textoLongo, { delay:0 }) //texto longo com repetição
+
+    cy.get('button[type="submit"]')
+      .contains('Enviar')
+      .click()
+
+    cy.get('.error > strong')
+      .should('be.visible', 'Valide os campos obrigatórios!')
+  })
+
+  it.only('Campo telefone so aceita números', () => {
+    cy.get('#phone')
+      .type('xpto')
+      .should('be.empty')
+      //.should('have.value', '')
+  })
+
 
 
 })
