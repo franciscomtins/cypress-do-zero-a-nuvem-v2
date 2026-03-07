@@ -18,19 +18,19 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.title().should('eq','Central de Atendimento ao Cliente TAT')
   })
 
-  it('Preenche e envia formulário com campos obrigatórios', () => {
+  it('preenche os campos obrigatórios e envia o formulário', () => {
      cy.get('#firstName').type(contato.nome)
      cy.get('#lastName').type(contato.sobrenome)
      cy.get('#email').type(contato.email)  
      cy.get('#open-text-area').type(contato.comoPodemosAjudar)   
 
-     cy.get('.button')
+     cy.get('button[type="submit"]')
        .contains('Enviar')
        .click()
 
      cy.get('.success > strong')
        .should('be.visible', 'Mensagem enviada com sucesso.')
   })
-  
+
 
 })
