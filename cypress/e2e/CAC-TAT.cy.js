@@ -175,7 +175,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
       })
   })
 
-  it.only('marca ambos checkboxes, depois desmarca o último', () => {
+  it('marca ambos checkboxes, depois desmarca o último', () => {
     cy.get('#check input[type="checkbox"]')
       .as('checkboxes')
       .check()
@@ -186,6 +186,33 @@ describe('Central de Atendimento ao Cliente TAT', () => {
       .uncheck()
       .should('not.be.checked')
   })
+
+  it('seleciona um arquivo da pasta fixtures', () => {
+    cy.get('#file-upload')
+      .selectFile('cypress/fixtures/example.json')
+      .should((arquivo) => {
+        //console.log(arquivo)  //Navegando até a opção files do console é possível ver o arquivo
+        //console.log(arquivo[0].files[0].name) //exibe o exatamente o arquivo do upload
+        expect(arquivo[0].files[0].name).to.equal('example.json')
+      })
+  })
+
+    it('seleciona um arquivo simulando um drag-and-drop', () => {
+      cy.get('#file-upload')
+         .selectFile('cypress/fixtures/example.json', { action: 'drag-drop' })
+         .should((arquivo) => {
+            expect(arquivo[0].files[0].name).to.equal('example.json')
+          })
+    })
+
+    it('seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', () => {
+      cy.fixture('example.json').as('arquivoUpload')
+      cy.get('#file-upload')
+        .selectFile('@arquivoUpload')
+        .should((arquivo) => {
+          expect(arquivo[0].files[0].name).to.equal('example.json')
+        })
+    })
 
 
 })
