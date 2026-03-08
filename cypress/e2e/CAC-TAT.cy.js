@@ -32,7 +32,8 @@ describe('Central de Atendimento ao Cliente TAT', () => {
        .click()
 
      cy.get('.success > strong')
-       .should('be.visible', 'Mensagem enviada com sucesso.')
+       .should('be.visible')
+       .and('contain', 'Mensagem enviada com sucesso.')
   })
 
   it('Valida submeter o formulário com um email com formatação inválida', () => {
@@ -46,7 +47,8 @@ describe('Central de Atendimento ao Cliente TAT', () => {
       .click()
 
     cy.get('.error > strong')
-      .should('be.visible', 'Valide os campos obrigatórios!')
+      .should('be.visible')
+      .and('contain', 'Valide os campos obrigatórios!')
   })
 
   it('Campo telefone so aceita números', () => {
@@ -67,7 +69,8 @@ describe('Central de Atendimento ao Cliente TAT', () => {
       .click()
 
     cy.get('.error > strong')
-      .should('be.visible',' Valide os campos obrigatórios!')
+      .should('be.visible') 
+      .and('contain', 'Valide os campos obrigatórios!')
   })
 
   it('preenche e limpa os campos nome, sobrenome, email e telefone', () => {
@@ -101,7 +104,8 @@ describe('Central de Atendimento ao Cliente TAT', () => {
       .click()
 
     cy.get('.error > strong')
-      .should('be.visible', 'Valide os campos obrigatórios!')
+      .should('be.visible')
+      .and('contain', 'Valide os campos obrigatórios!')
   })
 
   // usando comando com dados hard code
@@ -109,7 +113,8 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.preencheCamposObrigatoriosEenvia()
 
     cy.get('.success > strong')
-      .should('be.visible', 'Mensagem enviada com sucesso.')
+      .should('be.visible')
+      .and('contain', 'Mensagem enviada com sucesso.')
   })
 
   // usando comando e faker
@@ -124,7 +129,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
 
   // usando comando e faker + padrão -> retire a chamada do objeto na função para chamar valores 
   // definidos como padrão no objeto do custom commands
-  it.only('Envia o formulario com sucesso usando faker + padrao e comando customizado', () => {
+  it('Envia o formulario com sucesso usando faker + padrao e comando customizado', () => {
 
     cy.preencherFormularioContatoEenviaPadrao()
 
@@ -133,6 +138,23 @@ describe('Central de Atendimento ao Cliente TAT', () => {
       .and('contain', 'Mensagem enviada com sucesso.')
   })
 
+  it.only('seleciona um produto (YouTube) por seu texto',  () => {
+    cy.get('#product')
+      .select('YouTube')
+      .should('have.value','youtube')
+  })
+
+  it.only('seleciona um produto (Mentoria) por seu valor (value)', () => {
+    cy.get('#product')
+      .select('mentoria')
+      .should('have.value', 'mentoria')
+  })
+
+  it.only('seleciona um produto (Blog) por seu índice', () => {
+    cy.get('#product')
+      .select(1)
+      .should('have.value', 'blog')
+  })
 
 
 })
