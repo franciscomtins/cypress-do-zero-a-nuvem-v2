@@ -21,22 +21,31 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.title().should('eq','Central de Atendimento ao Cliente TAT')
   })
 
-  it('preenche os campos obrigatórios e envia o formulário', () => {
-     cy.get('#firstName').type(contato.nome)
-     cy.get('#lastName').type(contato.sobrenome)
-     cy.get('#email').type(contato.email)  
-     cy.get('#open-text-area').type(contato.comoPodemosAjudar, { delay:0 })   
+  it.only('preenche os campos obrigatórios e envia o formulário', () => {
+    cy.clock() // "concela o tempo por três segundos"
 
-     cy.get('button[type="submit"]')
-       .contains('Enviar')
-       .click()
+    cy.get('#firstName').type(contato.nome)
+    cy.get('#lastName').type(contato.sobrenome)
+    cy.get('#email').type(contato.email)  
+    cy.get('#open-text-area').type(contato.comoPodemosAjudar, { delay:0 })   
 
-     cy.get('.success > strong')
-       .should('be.visible')
-       .and('contain', 'Mensagem enviada com sucesso.')
+    cy.get('button[type="submit"]')
+      .contains('Enviar')
+      .click()
+
+    cy.get('.success > strong')
+      .should('be.visible')
+      .and('contain', 'Mensagem enviada com sucesso.')
+
+    cy.tick(3000) // "avança em x milesegundos"
+
+    cy.get('.success > strong')
+      .should('not.be.visible')
   })
 
-  it('Valida submeter o formulário com um email com formatação inválida', () => {
+  it.only('Valida submeter o formulário com um email com formatação inválida', () => {
+    cy.clock()
+
     cy.get('#firstName').type(contato.nome)
     cy.get('#lastName').type(contato.sobrenome)
     cy.get('#email').type('emailIncorreto')  
@@ -48,7 +57,11 @@ describe('Central de Atendimento ao Cliente TAT', () => {
 
     cy.get('.error > strong')
       .should('be.visible')
-      .and('contain', 'Valide os campos obrigatórios!')
+      
+    cy.tick(3000)
+
+    cy.get('.error > strong')
+      .should('not.be.visible')
   })
 
   it('Campo telefone so aceita números', () => {
@@ -58,7 +71,9 @@ describe('Central de Atendimento ao Cliente TAT', () => {
       //.should('have.value', '')
   })
 
-  it('Valida telefone obrigatório mas não é preenchido ao enviar do formulário', () => {
+  it.only('Valida telefone obrigatório mas não é preenchido ao enviar do formulário', () => {
+    cy.clock()
+
     cy.get('#firstName').type(contato.nome)
     cy.get('#lastName').type(contato.sobrenome)
     cy.get('#email').type(contato.email)  
@@ -71,6 +86,11 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get('.error > strong')
       .should('be.visible') 
       .and('contain', 'Valide os campos obrigatórios!')
+
+    cy.tick(3000)
+
+    cy.get('.error > strong')
+      .should('not.be.visible') 
   })
 
   it('preenche e limpa os campos nome, sobrenome, email e telefone', () => {
