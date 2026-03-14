@@ -40,6 +40,7 @@ npm install @faker-js/faker --save-dev
 |---|---|
 | `npm test` | Executa todos os testes em modo headless (desktop) |
 | `npm run test:mobile` | Executa todos os testes em modo headless simulando viewport mobile (410x860) |
+| `npm run test:cloud` | Executa todos os testes em modo headless com gravação no Cypress Cloud |
 | `npm run cy:open` | Abre o Cypress Test Runner interativo (desktop) |
 | `npm run cy:open:mobile` | Abre o Cypress Test Runner interativo simulando viewport mobile (410x860) |
 
