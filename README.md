@@ -19,9 +19,29 @@ Refazendo o treinamento básico na versão 2
 - Como executar os testes em um _workflow_ de integração contínua sempre que mudanças ocorrerem no código da aplicação (ou dos testes)
 - Como integrar seu _workflow_ de integração contínua com o Cypress Cloud (o serviço de gestão de testes do Cypress na nuvem)
 
-## Vamos começar?
+## Pré-requisitos
 
-Vá para a seção [estrutura do curso](./lessons/_course-structure_.md).
+> Todos na última versão LTS disponível.
+
+- [Node.js](https://nodejs.org/) e npm
+- [Cypress](https://www.cypress.io/) v15
+- [@faker-js/faker](https://fakerjs.dev/) v10
+
+## Instalação
+
+```bash
+npm install cypress --save-dev
+npm install @faker-js/faker --save-dev
+```
+
+## Testes
+
+| Comando | Descrição |
+|---|---|
+| `npm test` | Executa todos os testes em modo headless (desktop) |
+| `npm run test:mobile` | Executa todos os testes em modo headless simulando viewport mobile (410x860) |
+| `npm run cy:open` | Abre o Cypress Test Runner interativo (desktop) |
+| `npm run cy:open:mobile` | Abre o Cypress Test Runner interativo simulando viewport mobile (410x860) |
 
 ___
 
