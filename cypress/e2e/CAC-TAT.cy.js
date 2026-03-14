@@ -252,7 +252,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
         .should('be.visible')
     })
 
-    it.only('exibe e oculta as mensagens de sucesso e erro usando .invoke()', () => {
+    it('exibe e oculta as mensagens de sucesso e erro usando .invoke()', () => {
       cy.get('.success')
         .should('not.be.visible')
         .invoke('show')
@@ -269,7 +269,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
         .should('not.be.visible')
     })
 
-    it.only('preenche o campo da área de texto usando o comando invoke.', () => {
+    it('preenche o campo da área de texto usando o comando invoke.', () => {
       cy.get('#open-text-area')
         .as('inputTexto')
         .invoke('val', 'Inserindo texto simulando CTRL + V')
@@ -278,6 +278,34 @@ describe('Central de Atendimento ao Cliente TAT', () => {
         .should('have.value', 'Inserindo texto simulando CTRL + V')
     })
 
+    it('faz uma requisição HTTP', () => {
+      cy.request('https://cac-tat-v3.s3.eu-central-1.amazonaws.com/index.html')
+        .as('getRequest')
+      
+      cy.get('@getRequest')
+        .its('status')
+        .should('be.equal', 200)
+      
+      cy.get('@getRequest')
+        .its('statusText')
+        .should('be.equal', 'OK')
 
+      cy.get('@getRequest')
+        .its('body')
+        .should('include', 'CAC TAT')
+
+    })
+
+    it.only('faz uma requisição HTTP de outra forma', () => {
+      cy.request('https://cac-tat-v3.s3.eu-central-1.amazonaws.com/index.html')
+        .as('getRequest')
+
+      cy.get('@getRequest')
+        .should(({status, statusText, body }) => {
+          expect(status).to.equal(200)
+          expect(statusText).to.equal('OK')
+          expect(body).to.include('CAC TAT')
+        })
+    })
 
 })
